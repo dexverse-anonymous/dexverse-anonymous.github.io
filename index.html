@@ -1,1 +1,460 @@
-DexVerse Anonymous Website Test
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>DexVerse: A Modular Benchmark for Multi-Task, Multi-Embodiment Dexterous Manipulation</title>
+
+  <!--
+    TODO: Keep metadata anonymous during double-blind review.
+    Do not include author names, affiliations, lab names, personal URLs, GitHub handles,
+    analytics IDs, or social-media accounts in this file before acceptance.
+  -->
+  <meta name="description" content="Anonymous supplementary website for a CoRL submission.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DexVerse: A Modular Benchmark for Multi-Task, Multi-Embodiment Dexterous Manipulation">
+  <meta property="og:description" content="Supplementary videos and demos for peer review.">
+
+  <link rel="stylesheet" href="static/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Page sections">
+      <a href="#overview-video">Video</a>
+      <a href="#abstract">Abstract</a>
+      <a href="#task-variation">Tasks</a>
+      <a href="#visual-variation">Visual</a>
+      <a href="#robot-variation">Robots</a>
+      <a href="#long-horizon">Long-Horizon</a>
+      <a href="#system-design">System</a>
+      <a href="#baselines">Baselines</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section">
+      <div class="container">
+        <div class="hero-copy">
+          <h1>DexVerse: A Modular Benchmark for Multi-Task, Multi-Embodiment Dexterous Manipulation</h1>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview-video" class="section section-tight">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Video</h2>
+          <!--
+            TODO: Keep the final video short.
+            CoRL encourages a video under 3 minutes; use mp4/H.264 for portability.
+          -->
+        </div>
+
+        <figure class="video-block">
+          <!--
+            TODO:
+            1. Put the video at static/videos/overview.mp4.
+            2. Put a poster frame at static/images/overview-poster.jpg.
+          -->
+          <div class="video-frame video-frame-large">
+            <video controls muted playsinline preload="metadata" poster="static/images/overview-poster.jpg">
+              <source src="static/videos/overview.mp4" type="video/mp4">
+            </video>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="abstract" class="section section-muted">
+      <div class="container narrow">
+        <div class="section-heading centered">
+          <h2>Abstract</h2>
+        </div>
+
+        <!--
+          TODO: Paste the exact abstract from your anonymous submission.
+          Keep wording synchronized with the PDF to avoid reviewer confusion.
+        -->
+        <p class="abstract-text">
+          Building general-purpose dexterous manipulation policies requires benchmarks that go beyond
+          isolated tasks and evaluate policies across diverse interaction modes, sensory conditions, and
+          robot embodiments. However, existing benchmarks remain limited in task diversity, embodiment
+          coverage, or controllable visual variation, hindering studies of cross-task and cross-embodiment
+          generalization. We present <strong>DexVerse</strong>, a large-scale and modular benchmark for
+          dexterous manipulation. DexVerse includes 100 tasks spanning a broad range of manipulation skills,
+          including object grasping and relocation, articulated-object interaction, functional tool use,
+          bimanual coordination, non-prehensile control, contact-rich behaviors, multi-goal execution, and
+          long-horizon multi-stage task completion. It supports 3 robot arms and 6 dexterous hands, and is
+          extensible to new tasks, assets, and embodiments. To evaluate visuomotor generalization, DexVerse
+          provides configurable visual variations in textures, background, lighting, and camera viewpoints.
+          We further provide a VR-based teleoperation interface and 3,180 demonstrations with synchronized
+          proprioceptive, RGB, depth, point-cloud, and state observations. We benchmark representative
+          methods, including Diffusion Policy, DP3, OpenVLA, and π<sub>0.5</sub>, across 19 tasks. Results
+          reveal substantial challenges in task generalization and visuomotor robustness, establishing
+          DexVerse as a testbed for general-purpose dexterous manipulation.
+        </p>
+      </div>
+    </section>
+
+    <section id="task-variation" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Task Variation</h2>
+          <p class="section-lead">
+            DexVerse contains <strong>100 dexterous manipulation tasks</strong> organized into 8 categories
+            &mdash; primitive, functional, articulation, non-prehensile, contact-rich, bimanual, multi-goal,
+            and long-horizon. Tasks are grouped by the dominant interaction pattern and manipulation
+            challenge rather than by object type. Filter by category and use the arrows to browse
+            representative demos, each paired with its description and success condition.
+          </p>
+        </div>
+
+        <!--
+          TODO:
+          Task cards are generated from static/data/tasks.js (window.DEXVERSE_TASKS).
+          Put each task demo video at:
+            static/videos/task-variation/{TaskName}.mp4
+          Put each poster frame at:
+            static/images/task-variation/{TaskName}.jpg
+        -->
+        <div id="task-demo-toolbar" class="task-toolbar" aria-label="Task demo category filters">
+            <button class="task-filter is-active" type="button" data-category="all">All Tasks</button>
+          </div>
+
+          <div class="carousel" data-carousel>
+            <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous task demos">‹</button>
+            <div class="carousel-viewport">
+              <div id="task-demo-grid" class="demo-grid carousel-track">
+                <p class="loading-note">Loading task demos...</p>
+              </div>
+            </div>
+            <button class="carousel-button" type="button" data-carousel-next aria-label="Next task demos">›</button>
+          </div>
+      </div>
+    </section>
+
+    <section id="visual-variation" class="section section-muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Visual Variation</h2>
+          <p class="section-lead">
+            When visual randomization is enabled, appearance is sampled at reset from predefined libraries
+            &mdash; object and table materials, lighting, background HDR skyboxes, exposure, and color
+            temperature &mdash; while the task objective and success conditions stay fixed. DexVerse also
+            supports camera-viewpoint changes, so the same task can be observed under different conditions.
+          </p>
+        </div>
+
+        <!--
+          TODO:
+          Put visual variation videos at:
+            static/videos/visual-variation/{material|lighting|hdr}/{TaskName}.mp4
+          Put poster frames at:
+            static/images/visual-variation/{material|lighting|hdr}/{TaskName}.jpg
+        -->
+          <div class="visual-group">
+            <div class="visual-group-head">
+              <h4>Material</h4>
+              <p>Object and table materials resampled at reset.</p>
+            </div>
+            <div class="demo-grid visual-grid">
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/material/HammerStrike.jpg">
+                    <source src="static/videos/visual-variation/material/HammerStrike.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">material/HammerStrike.mp4</span>
+                </div>
+                <h4><code>FunctionalHammerStrike</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/material/InsertPen.jpg">
+                    <source src="static/videos/visual-variation/material/InsertPen.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">material/InsertPen.mp4</span>
+                </div>
+                <h4><code>InsertPen</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/material/PickThinObjectFromContainer.jpg">
+                    <source src="static/videos/visual-variation/material/PickThinObjectFromContainer.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">material/PickThinObjectFromContainer.mp4</span>
+                </div>
+                <h4><code>PickThinObjectFromContainer</code></h4>
+              </article>
+            </div>
+          </div>
+
+          <div class="visual-group">
+            <div class="visual-group-head">
+              <h4>Lighting</h4>
+              <p>Light direction, intensity, and color temperature varied.</p>
+            </div>
+            <div class="demo-grid visual-grid">
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/lighting/HammerStrike.jpg">
+                    <source src="static/videos/visual-variation/lighting/HammerStrike.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">lighting/HammerStrike.mp4</span>
+                </div>
+                <h4><code>FunctionalHammerStrike</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/lighting/InsertPen.jpg">
+                    <source src="static/videos/visual-variation/lighting/InsertPen.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">lighting/InsertPen.mp4</span>
+                </div>
+                <h4><code>InsertPen</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/lighting/PickThinObjectFromContainer.jpg">
+                    <source src="static/videos/visual-variation/lighting/PickThinObjectFromContainer.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">lighting/PickThinObjectFromContainer.mp4</span>
+                </div>
+                <h4><code>PickThinObjectFromContainer</code></h4>
+              </article>
+            </div>
+          </div>
+
+          <div class="visual-group">
+            <div class="visual-group-head">
+              <h4>HDR Background</h4>
+              <p>Background skybox swapped from a library of HDR environments.</p>
+            </div>
+            <div class="demo-grid visual-grid">
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/hdr/HammerStrike.jpg">
+                    <source src="static/videos/visual-variation/hdr/HammerStrike.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">hdr/HammerStrike.mp4</span>
+                </div>
+                <h4><code>FunctionalHammerStrike</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/hdr/InsertPen.jpg">
+                    <source src="static/videos/visual-variation/hdr/InsertPen.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">hdr/InsertPen.mp4</span>
+                </div>
+                <h4><code>InsertPen</code></h4>
+              </article>
+
+              <article class="demo-card">
+                <div class="video-frame">
+                  <video controls muted playsinline preload="metadata" poster="static/images/visual-variation/hdr/PickThinObjectFromContainer.jpg">
+                    <source src="static/videos/visual-variation/hdr/PickThinObjectFromContainer.mp4" type="video/mp4">
+                  </video>
+                  <span class="replace-note">hdr/PickThinObjectFromContainer.mp4</span>
+                </div>
+                <h4><code>PickThinObjectFromContainer</code></h4>
+              </article>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="robot-variation" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Robot Variation</h2>
+          <p class="section-lead">
+            DexVerse supports <strong>3 robot arms</strong> (Franka Research 3, UR10e, xArm 7) and
+            <strong>6 dexterous hands</strong> (Sharpa Wave, WUJI Hand, Shadow Hand, Inspire Hand, Allegro
+            Hand, LEAP Hand), spanning diverse kinematics, degrees of freedom, joint limits, and hand
+            morphologies. Each embodiment is defined by a compact arm&ndash;hand specification, and every
+            hand also has a floating-wrist variant. The grid below compares the same task across arm&ndash;hand
+            combinations.
+          </p>
+        </div>
+
+        <!--
+          TODO:
+          The matrix is generated from the 3 arms and 6 hands defined in static/js/site.js.
+          Put each robot variation demo at:
+            static/videos/robot-variation/{arm-slug}__{hand-slug}.mp4
+          Put each poster frame at:
+            static/images/robot-variation/{arm-slug}__{hand-slug}.jpg
+        -->
+        <div id="robot-matrix" class="robot-matrix" aria-label="Robot arm and hand combinations">
+          <p class="loading-note">Loading robot variation matrix...</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="long-horizon" class="section section-muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Long-Horizon Tasks</h2>
+          <p class="section-lead">
+            Five multi-stage tasks that chain primitive, functional, and articulated skills into temporally
+            extended procedures. Use the arrows to scroll through the showcase.
+          </p>
+        </div>
+
+        <!--
+          TODO:
+          Long-horizon cards are generated from the "Long-horizon" tasks in
+          static/data/tasks.json. Put each showcase video at:
+            static/videos/long-horizon/{TaskName}.mp4
+          Put each poster frame at:
+            static/images/long-horizon/{TaskName}.jpg
+          Example:
+            static/videos/long-horizon/LongHorizonMakeCoffee.mp4
+        -->
+        <div class="carousel" data-carousel>
+          <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous long-horizon demos">‹</button>
+          <div class="carousel-viewport">
+            <div id="long-horizon-grid" class="demo-grid carousel-track">
+              <p class="loading-note">Loading long-horizon showcase...</p>
+            </div>
+          </div>
+          <button class="carousel-button" type="button" data-carousel-next aria-label="Next long-horizon demos">›</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="system-design" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>System Design</h2>
+        </div>
+
+        <p class="section-lead">
+          A configuration-driven, modular simulation benchmark on Isaac Lab &mdash; tasks, embodiments, and
+          visual conditions are decoupled so each can be swapped or extended independently.
+        </p>
+
+        <div class="system-layout">
+          <div class="system-copy">
+            <ul class="spec-list">
+              <li>
+                <strong>Config-driven.</strong> Built on Isaac Lab's manager-based RL environment;
+                observations, actions, events, and success predicates are config classes &mdash; change
+                cameras, randomization, or thresholds via overrides, not code.
+              </li>
+              <li>
+                <strong>Inherit &amp; override.</strong> Main Base &rarr; Task Family &rarr; Task; each task
+                overrides only its object, target, and success threshold, keeping tasks decoupled from
+                embodiments.
+              </li>
+              <li>
+                <strong>Embodiments.</strong> 3 arms &times; 6 dexterous hands paired through a compact
+                arm&ndash;hand spec, each with a floating-wrist variant.
+              </li>
+              <li>
+                <strong>Data.</strong> VR teleoperation (Apple Vision Pro + dex-retargeting) yields
+                <strong>3,180 demos</strong> with synced proprioceptive, RGB, depth, point-cloud, and state
+                observations, replayed locally for portable, drift-free playback.
+              </li>
+            </ul>
+          </div>
+
+          <div class="system-figures">
+            <figure class="figure-block">
+              <div class="figure-frame">
+                <img src="static/images/system-design.png" alt="DexVerse modular environment architecture" loading="lazy">
+              </div>
+              <figcaption>System diagram: modular environment architecture (inherit-and-override).</figcaption>
+            </figure>
+
+            <figure class="figure-block">
+              <div class="figure-frame">
+                <img src="static/images/teleop-system.png" alt="DexVerse VR teleoperation data-collection system" loading="lazy">
+              </div>
+              <figcaption>Teleoperation system: VR-based data collection and retargeting.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="baselines" class="section section-muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Baselines</h2>
+          <p class="section-lead">
+            Four policies &mdash; &pi;<sub>0.5</sub>, OpenVLA, DP3, and DP &mdash; trained on 950 episodes
+            (19 tasks &times; 50) and evaluated closed-loop for 50 rollouts each. Best mean success is just
+            <strong>0.34</strong>, and no method dominates all categories. Best per task in <strong>bold</strong>.
+          </p>
+        </div>
+
+        <!--
+          NOTE: Values transcribed from Table 3 of the submission. Keep these synchronized
+          with the PDF; update if the final results table changes.
+        -->
+        <div class="table-wrap">
+          <table class="baseline-table">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Task</th>
+                <th scope="col">&pi;<sub>0.5</sub></th>
+                <th scope="col">OpenVLA</th>
+                <th scope="col">DP3</th>
+                <th scope="col">DP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row" rowspan="7">Pick-and-Lift</th><td class="task-cell">BimanualLiftCarton</td><td><strong>1.00</strong></td><td>0.60</td><td>0.90</td><td>0.94</td></tr>
+              <tr><td class="task-cell">BimanualLiftTray</td><td><strong>0.84</strong></td><td>0.72</td><td>0.56</td><td>0.60</td></tr>
+              <tr><td class="task-cell">GraspBleach</td><td>0.10</td><td>0.06</td><td><strong>0.32</strong></td><td>0.10</td></tr>
+              <tr><td class="task-cell">GraspCup</td><td>0.16</td><td>0.08</td><td>0.22</td><td><strong>0.50</strong></td></tr>
+              <tr><td class="task-cell">GraspKettle</td><td>0.58</td><td>0.16</td><td>0.80</td><td><strong>0.90</strong></td></tr>
+              <tr><td class="task-cell">GraspPan</td><td>0.06</td><td>0.02</td><td>0.16</td><td><strong>0.52</strong></td></tr>
+              <tr><td class="task-cell">RemoveCupFromRack</td><td>0.02</td><td>0.02</td><td><strong>0.06</strong></td><td>0.04</td></tr>
+
+              <tr><th scope="row" rowspan="6">Articulated</th><td class="task-cell">OpenFaucet</td><td><strong>0.84</strong></td><td>0.36</td><td>0.76</td><td>0.28</td></tr>
+              <tr><td class="task-cell">OpenFlatFolder</td><td>0.00</td><td>0.00</td><td><strong>0.18</strong></td><td>0.16</td></tr>
+              <tr><td class="task-cell">OpenLaptop</td><td>0.04</td><td>0.02</td><td>0.02</td><td><strong>0.10</strong></td></tr>
+              <tr><td class="task-cell">OpenStapler</td><td>0.86</td><td><strong>0.92</strong></td><td>0.84</td><td>0.86</td></tr>
+              <tr><td class="task-cell">SlideUtilityKnife</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+              <tr><td class="task-cell">SqueezeScissors</td><td><strong>0.36</strong></td><td>0.22</td><td>0.20</td><td>0.00</td></tr>
+
+              <tr><th scope="row" rowspan="3">Tool Use</th><td class="task-cell">FunctionalHammerStrike</td><td>0.22</td><td>0.18</td><td><strong>0.26</strong></td><td>0.00</td></tr>
+              <tr><td class="task-cell">FunctionalPourCan</td><td>0.04</td><td>0.10</td><td>0.14</td><td><strong>0.38</strong></td></tr>
+              <tr><td class="task-cell">FunctionalPourMug</td><td>0.52</td><td>0.16</td><td><strong>0.64</strong></td><td>0.26</td></tr>
+
+              <tr><th scope="row" rowspan="3">Precision</th><td class="task-cell">InsertPen</td><td>0.06</td><td>0.00</td><td><strong>0.08</strong></td><td>0.00</td></tr>
+              <tr><td class="task-cell">PushSmallSphereObstacleSlope</td><td><strong>0.82</strong></td><td>0.08</td><td>0.28</td><td>0.36</td></tr>
+              <tr><td class="task-cell">PushT</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+
+              <tr class="summary-row"><th scope="row" colspan="2">Mean</th><td><strong>0.34</strong></td><td>0.19</td><td><strong>0.34</strong></td><td>0.32</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Online success rate over 50 rollouts per task. Observation modalities: &pi;<sub>0.5</sub> / OpenVLA / DP use RGB + state; DP3 uses point clouds.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- TODO: Keep footer anonymous during review. -->
+      <p>Anonymous supplementary website for peer review.</p>
+    </div>
+  </footer>
+
+  <script src="static/data/tasks.js"></script>
+  <script src="static/js/site.js"></script>
+</body>
+</html>
